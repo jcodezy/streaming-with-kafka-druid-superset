@@ -45,13 +45,26 @@ sudo apt install postgres
 
 ```
 
-## Zookeeper 
-Zookeeper is both a Kafka AND Druid dependency. Zookeeper can be installed on its own
-server, but we'll install Zookeeper on the the Master node. 
-
-#### SSH into Zookeeper node and run
+## common.runtime.properties
+Find the config file inside `apache-druid-0.20.1/conf/druid/cluster/_common/` 
+and replace the following
 ```
-# Download Zookeeper
-wget https://httpd-mirror.sergal.org/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
-tar -xzf https://httpd-mirror.sergal.org/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
+sudo vim apache-druid-0.20.1/conf/druid/cluster/_common/common.runtime.properties
+
+# Add Kafka & Postgres to Druid's extensions list
+druid.extensions.loadList=["druid-google-extensions", "postgres-metadata-storage", "druid-datasketches", "druid-kafka-indexing-service"]
+
+# Update IP to the server/node internal IP where this is installed;
+# If you have three nodes in the cluster, there will be three different IPs entered here
+druid.host=[YOUR.HOST.IP]
+
+# Zookeeper service host ip (where Zookeeper is installed -- Master, in this case)
+druid.zk.service.host=[ZOOKEEPER.IP]
+
+# Postgres Metadata
+druid.metadata.storage.type=postgres
+druid.metadata.storage.connector.host=[POSTGRES.IP]
+druid.metadata.storage.connector.connectURI=jdbc:postgresql://localhost:5432/druid
+druid.metadata.storage.connector.user=druid
+druid.metadata.storage.connector.password=password1
 ``` 
