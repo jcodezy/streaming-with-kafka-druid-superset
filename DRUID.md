@@ -7,8 +7,8 @@ if run locally but it is possible to tune this if you know what you're doing.
 If you want to run locally, you can do this by customizing the JMX/max heap sizes in 
 `conf/druid/cluster/_common/common.server.properties`. 
 
-### GCP Druid Cluster
-#### Google Cloud Compute VMs 
+## GCP Druid Cluster
+Google Cloud Compute VMs 
 1. "druid-master-1": 
 * This server contains Druid's Coordinator and Overlord processes and they are in charge of handling Druid's metadata and coordination
 needs of the cluster.
@@ -20,7 +20,30 @@ needs of the cluster.
 * Druid Historicals and MiddleManagers in this server handle the ingested data in the cluster. 
 * e2-custom (2 vCPUs, 13.25 GB memory)
 
-
-
+## Setting up Druid 
+#### SSH into each server node
+`gcloud compute ssh --project [PROJECT_NAME] --zone [ZONE] [SERVER_NODE_NAME]`
  
+### For each of the three servers, complete Druid setup
+```
+# Download Druid 
+wget https://mirror.dsrg.utoronto.ca/apache/druid/0.20.1/apache-druid-0.20.1-bin.tar.gz
+tar -xzf https://mirror.dsrg.utoronto.ca/apache/druid/0.20.1/apache-druid-0.20.1-bin.tar.gz
+
+# Update libraries
+sudo apt-get update
+
+# Java JDK
+# Ensure you have JDK 8 or higher 
+sudo apt install default-jdk -y 
+ 
+
+# Install Perl
+sudo apt-get install perl -y 
+
+# Install Postgres for metadata
+sudo apt install postgres
+
+```
+
  
