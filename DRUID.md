@@ -46,6 +46,7 @@ sudo apt install postgres
 ```
 
 ## common.runtime.properties
+### Important Note: the common.runtime.properties file across all druid nodes should be the SAME. Make one copy and replace the existing common.runtime.properties in each node.
 Find the config file inside `apache-druid-0.20.1/conf/druid/cluster/_common/`
 or  
 `sudo vim apache-druid-0.20.1/conf/druid/cluster/_common/common.runtime.properties`
@@ -105,4 +106,4 @@ druid.auth.authorizer.MyBasicMetadataAuthorizer.type=basic
 druid.auth.authorizer.MyBasicMetadataAuthorizer.enableCacheNotifications=true
 druid.auth.authorizer.MyBasicMetadataAuthorizer.cacheNotificationTimeout=5000
 ```
- 
+#### See `examples/common.runtime.properties` of this repo for the full example.  

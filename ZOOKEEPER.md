@@ -2,6 +2,9 @@
 Zookeeper is both a Kafka AND Druid dependency. Zookeeper can be installed on its own
 server, but we'll install Zookeeper on the the Druid Master node. 
 
+#### Druid and Kafka cannot start without Zookeeper; make sure to run Zookeeper before starting Druid and Kafka processes.
+
+### Installing Zookeeper
 #### SSH into node where Zookeeper will be installed and run
 ```
 # Download Zookeeper
