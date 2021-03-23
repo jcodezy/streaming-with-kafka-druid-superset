@@ -46,17 +46,17 @@ sudo apt install postgres
 ```
 
 ## common.runtime.properties
-Find the config file inside `apache-druid-0.20.1/conf/druid/cluster/_common/` 
-and replace the following
-```
-sudo vim apache-druid-0.20.1/conf/druid/cluster/_common/common.runtime.properties
+Find the config file inside `apache-druid-0.20.1/conf/druid/cluster/_common/`
+or  
+`sudo vim apache-druid-0.20.1/conf/druid/cluster/_common/common.runtime.properties`
 
+And replace the following:
+```
 # Add Kafka & Postgres to Druid's extensions list
 druid.extensions.loadList=["druid-google-extensions", "postgres-metadata-storage", "druid-datasketches", "druid-kafka-indexing-service"]
 
 # Update IP to the server/node internal IP where this is installed;
-# If you have three nodes in the cluster, there will be three different IPs entered here
-druid.host=[YOUR.HOST.IP]
+druid.host=[YOUR.HOST.IP] # internal ip of VM instance  
 
 # Zookeeper service host ip (where Zookeeper is installed -- Master, in this case)
 druid.zk.service.host=[ZOOKEEPER.IP]
@@ -67,4 +67,42 @@ druid.metadata.storage.connector.host=[POSTGRES.IP]
 druid.metadata.storage.connector.connectURI=jdbc:postgresql://localhost:5432/druid
 druid.metadata.storage.connector.user=druid
 druid.metadata.storage.connector.password=password1
-``` 
+
+# For GCS Storage:
+druid.storage.type=google
+druid.google.bucket=[YOUR_BUCKET_NAME]
+druid.google.prefix=[YOUR_BUCKET_NAME]/segments
+
+# Indexing Service Logs
+druid.indexer.logs.type=google
+druid.indexer.logs.bucket=[YOUR_BUCKET_NAME]
+druid.indexer.logs.prefix=[YOUR_BUCKET_NAME]/indexing-logs
+
+#Creating authenticator
+druid.auth.authenticatorChain=["MyBasicMetadataAuthenticator"]
+
+druid.auth.authenticatorChain=["MyBasicMetadataAuthenticator"]
+druid.auth.authenticator.MyBasicMetadataAuthenticator.type=basic
+druid.auth.authenticator.MyBasicMetadataAuthenticator.initialAdminPassword=password1
+druid.auth.authenticator.MyBasicMetadataAuthenticator.initialInternalClientPassword=password2
+druid.auth.authenticator.MyBasicMetadataAuthenticator.credentialsValidator.type=metadata
+druid.auth.authenticator.MyBasicMetadataAuthenticator.skipOnFailure=false
+druid.auth.authenticator.MyBasicMetadataAuthenticator.authorizerName=MyBasicMetadataAuthorizer
+
+druid.auth.authenticator.MyBasicMetadataAuthenticator.enableCacheNotifications=true
+druid.auth.authenticator.MyBasicMetadataAuthenticator.cacheNotificationTimeout=5000
+druid.auth.authenticator.MyBasicMetadataAuthenticator.credentialIterations=10000
+
+#Escalator
+druid.escalator.type=basic
+druid.escalator.internalClientUsername=druid_system
+druid.escalator.internalClientPassword=password2
+druid.escalator.authorizerName=MyBasicMetadataAuthorizer
+
+#Creating Authorizer chequear
+druid.auth.authorizers=["MyBasicMetadataAuthorizer"]
+druid.auth.authorizer.MyBasicMetadataAuthorizer.type=basic
+druid.auth.authorizer.MyBasicMetadataAuthorizer.enableCacheNotifications=true
+druid.auth.authorizer.MyBasicMetadataAuthorizer.cacheNotificationTimeout=5000
+```
+ 
