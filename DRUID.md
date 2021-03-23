@@ -9,14 +9,14 @@ If you want to run locally, you can do this by customizing the JMX/max heap size
 
 ## GCP Druid Cluster
 Google Cloud Compute VMs 
-1. "druid-master-1": 
+#### 1. "druid-master-1": 
 * This server contains Druid's Coordinator and Overlord processes and they are in charge of handling Druid's metadata and coordination
 needs of the cluster.
 * e2-custom (2vCPUs, 5.5GB memory)
-2. "druid-query-1":
+#### 2. "druid-query-1":
 * Druid brokers inside the query server accept queries and farm them out to the rest of the cluster. 
 * e2-standard-4 (4 vCPUs, 16 GB memory)
-3. "druid-data-1":
+#### 3. "druid-data-1":
 * Druid Historicals and MiddleManagers in this server handle the ingested data in the cluster. 
 * e2-custom (2 vCPUs, 13.25 GB memory)
 
@@ -36,7 +36,6 @@ sudo apt-get update
 # Java JDK
 # Ensure you have JDK 8 or higher 
 sudo apt install default-jdk -y 
- 
 
 # Install Perl
 sudo apt-get install perl -y 
@@ -46,4 +45,13 @@ sudo apt install postgres
 
 ```
 
- 
+## Zookeeper 
+Zookeeper is both a Kafka AND Druid dependency. Zookeeper can be installed on its own
+server, but we'll install Zookeeper on the the Master node. 
+
+#### SSH into Zookeeper node and run
+```
+# Download Zookeeper
+wget https://httpd-mirror.sergal.org/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
+tar -xzf https://httpd-mirror.sergal.org/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
+``` 
