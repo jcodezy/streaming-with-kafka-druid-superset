@@ -110,7 +110,10 @@ druid.auth.authorizer.MyBasicMetadataAuthorizer.cacheNotificationTimeout=5000
 
 ## Running Druid
 #### SSH into node where zookeeper was installed 
-`sudo /usr/local/zookeeper/apache-zookeeper-3.6.2-bin/bin/zkServer.sh start # replace start with stop if you want to stop zookeeper`
+```
+# replace 'start' with 'stop' when stopping zookeeper
+sudo /usr/local/zookeeper/apache-zookeeper-3.6.2-bin/bin/zkServer.sh start
+```
 ### Start Master Node
 ```
 # if running master node on same server as zookeeper 
@@ -129,4 +132,4 @@ sudo apache-druid-0.20.1/bin/start-cluster-master-with-zk-server
 
 ## Druid Web UI
 First go into the network details of your VM instance and allow all in order to open up the necessary druid ports. 
-### When that's done, you should be able to access the web UI using: `[EXTERNAL_QUERY_NODE_IP]:8888`       
+#### When that's done, you should be able to access the web UI using: `[EXTERNAL_QUERY_NODE_IP]:8888`       
