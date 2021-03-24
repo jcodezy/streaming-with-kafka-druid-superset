@@ -21,7 +21,7 @@ needs of the cluster.
 * e2-custom (2 vCPUs, 13.25 GB memory)
 
 ## Setting up Druid 
-#### SSH into each server node
+#### SSH into each server node and run: 
 `gcloud compute ssh --project [PROJECT_NAME] --zone [ZONE] [SERVER_NODE_NAME]`
  
 ### For each of the three servers, complete Druid setup
@@ -109,7 +109,7 @@ druid.auth.authorizer.MyBasicMetadataAuthorizer.cacheNotificationTimeout=5000
 #### See [`examples/common.runtime.properties`](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/examples/common.runtime.properties) of this repo for the full example.
 
 ## Running Druid
-#### SSH into node where zookeeper was installed 
+#### SSH into node where zookeeper was installed and run: 
 ```
 # replace 'start' with 'stop' when stopping zookeeper
 sudo /usr/local/zookeeper/apache-zookeeper-3.6.2-bin/bin/zkServer.sh start
@@ -123,11 +123,11 @@ sudo apache-druid-0.20.1/bin/start-cluster-master-no-zk-server
 sudo apache-druid-0.20.1/bin/start-cluster-master-with-zk-server
 ``` 
 ### Start Data Node 
-#### SSH into data node
+#### SSH into data node and run:
 `sudo apache-druid-0.20.1/bin/start-cluster-data-server` 
 
 ### Start Query Node 
-#### SSH into query node
+#### SSH into query node and run:
 `sudo apache-druid-0.20.1/bin/start-cluster-query-server`
 
 ## Druid Web UI
