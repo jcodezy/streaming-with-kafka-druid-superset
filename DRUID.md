@@ -106,4 +106,27 @@ druid.auth.authorizer.MyBasicMetadataAuthorizer.type=basic
 druid.auth.authorizer.MyBasicMetadataAuthorizer.enableCacheNotifications=true
 druid.auth.authorizer.MyBasicMetadataAuthorizer.cacheNotificationTimeout=5000
 ```
-#### See `examples/common.runtime.properties` of this repo for the full example.  
+#### See [`examples/common.runtime.properties`](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/examples/common.runtime.properties) of this repo for the full example.
+
+## Running Druid
+#### SSH into node where zookeeper was installed 
+`sudo /usr/local/zookeeper/apache-zookeeper-3.6.2-bin/bin/zkServer.sh start # replace start with stop if you want to stop zookeeper`
+### Start Master Node
+```
+# if running master node on same server as zookeeper 
+sudo apache-druid-0.20.1/bin/start-cluster-master-no-zk-server
+
+# otherwise
+sudo apache-druid-0.20.1/bin/start-cluster-master-with-zk-server
+``` 
+### Start Data Node 
+#### SSH into data node
+`sudo apache-druid-0.20.1/bin/start-cluster-data-server` 
+
+### Start Query Node 
+#### SSH into query node
+`sudo apache-druid-0.20.1/bin/start-cluster-query-server`
+
+## Druid Web UI
+First go into the network details of your VM instance and allow all in order to open up the necessary druid ports. 
+### When that's done, you should be able to access the web UI using: `[EXTERNAL_QUERY_NODE_IP]:8888`       
