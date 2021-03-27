@@ -23,3 +23,5 @@ Go into your browser and enter
 localhost:8088
 ``` 
 
+#### Add Druid as a database in Superset
+`admin` and `password1` defined in Druid's basic security authentication protocol; defined in the common.runtime.properties config file in each Druid node. Add `druid://admin@password1@[DRUID_QUERY_IP]:8888` in Superset's database page.
