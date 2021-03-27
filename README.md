@@ -38,12 +38,10 @@ sudo apache-druid-0.20.1/bin/start-cluster-data-server
 
 # SSH into Query node and run
 sudo apache-druid-0.20.1/bin/start-cluster-query-server
-```
-#### Druid UI
-Access Druid's web UI by going into a browser and entering
-```
-# replace IP with the query node external IP
-[IP]:8888
+
+# Access Druid's web UI by going into a browser and entering
+# replace with the data node external IP
+[DATA_NODE_IP]:8888
 ```
 
 #### Start Kafka
@@ -56,9 +54,11 @@ sudo kafka_2.13-2.7.0/bin/kafka-server-start config/server.properties
 ```
 # SSH into Superset if Superset is on a node; run
 superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
-``` 
-#### Access Superset's UI 
-Go to a browser and run `[SUPERSET_NODE_IP]:8088`
+
+# Access Superset's UI 
+# Go to a browser and run 
+[SUPERSET_NODE_IP]:8088
+```
 
 #### Add Druid as a database in Superset
 `admin` and `password1` defined in Druid's basic security authentication protocol; defined in the common.runtime.properties config file in each Druid node.  
