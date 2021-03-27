@@ -1,11 +1,14 @@
 # A streaming data pipeline for real-time analysis using Apache (Kafka, Druid & Superset) and GCP
 ![architecture diagram](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/architecture-diagram-1.png)
 
-## Introduction
-I wanted to use Apache Kafka, Druid, Superset and GCP to create real-time analytics pipeline. 
+## About
+I wanted to use Apache Kafka, Druid, Superset and GCP to create real-time analytics pipeline.   
 
-## Setup
-See the individual markdown files in this repo to get detailed instructions on how to get going. 
+## Requirements
+* GCP account and at least three nodes (note: the Druid data node requires at minimum 8gb of RAM unless you edit configurations in config files)
+
+## Setup 
+See the individual markdown files in this repo to get detailed instructions on how to get going, starting with Druid. 
 #### **The rest of this README.md assumes you have these components installed and ready to run altogether** 
 
 ### Data Source: ACLED Data 
@@ -20,11 +23,12 @@ To simulate a stream of data, I downloaded a 2020 dataset from ACLED and created
 gcloud compute ssh --project [PROJECT] --zone [ZONE] [GCP_USERNAME]@[GCP_VM_NAME] 
 ```
 #### Start Zookeeper
+Zookeeper needs to start before Druid and Kafka/ 
 ```
 # SSH into Zookeeper node
 sudo /usr/local/zookeeper/apache-zookeeper-3.6.2-bin/bin/zkServer.sh start
 ```
-#### Start Druid nodes
+#### Start Druid cluster
 ``` 
 # SSH into Master node and run
 sudo apache-druid-0.20.1/bin/start-cluster-master-no-zk-server
@@ -53,7 +57,9 @@ sudo kafka_2.13-2.7.0/bin/kafka-server-start config/server.properties
 # SSH into Superset if Superset is on a node; run
 superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
 ``` 
-#### Access Superset's UI via [SUPERSET_NODE_IP]:8088
+#### Access Superset's UI 
+Go to a browser and run `[SUPERSET_NODE_IP]:8088`
+
 #### Add Druid as a database in Superset
 `admin` and `password1` defined in Druid's basic security authentication protocol; defined in the common.runtime.properties config file in each Druid node.  
 Add `druid://admin@password1@[DRUID_QUERY_IP]:8888` in Superset's database page. 
