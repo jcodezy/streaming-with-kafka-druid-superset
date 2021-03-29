@@ -70,4 +70,4 @@ druid://admin@password1@[DRUID_QUERY_IP]:8888
 
 ## Connecting Kafka & Druid 
 In the Druid UI, select  Load Data > Kafka and fill out the following 
-![kafka-druid-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png =450x250)
+![kafka-druid-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png)
