@@ -79,4 +79,8 @@ The following confirms that the data being sent from producer.py is reaching kaf
 
 ## Connecting Kafka & Druid
 In the Druid UI, select Load Data > Kafka and fill out the following
-![kafka-druid-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png)
+<img src="https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png" alt="kafka-druid-spec" width="350" height="400"/>
+### After completing the ingestion specs, you should now be able to query the data as it arrives in Superset!
+
+# Up Next
+* Creating Druid dashboard with the data 
