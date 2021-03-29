@@ -13,8 +13,8 @@ More information on ACLED can be found [HERE](https://acleddata.com/#/dashboard)
 ### Data Source: ACLED Data 
 To simulate a stream of data, I downloaded a 2020 dataset from ACLED and created a generator, [/data.py](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/data.py) and [/producer.py](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/producer.py) file to send the data to Kafka. These are real events that happened in 2020, but for the purpose of this project, I changed the `timestamp` to time.now() to simulate events coming through in real time.
       
-## Running the components
-**See markdown file for zookeeper, druid, kafka and superset and install each component first.** 
+## Starting the components
+**See markdown file for zookeeper, druid, kafka and superset and install each component first, starting with druid.** 
 
 #### How to SSH into VM
 ```
@@ -39,26 +39,37 @@ sudo apache-druid-0.20.1/bin/start-cluster-data-server
 sudo apache-druid-0.20.1/bin/start-cluster-query-server
 
 # Access Druid's web UI by going into a browser and entering
-DATA_NODE_IP:8888 # data node's external IP
+QUERY_NODE_IP:8888 # query node's external IP
+
+# Sign in with username:'druid_system' and pwd:password2 as defined in:
+# /config/druid/cluster/_common/common.runtime.properties  
 ```
 
-#### Start Kafka server
+#### Start Kafka server and create Topic 
 ```
 # SSH into Kafka node and run
 sudo kafka_2.13-2.7.0/bin/kafka-server-start config/server.properties 
+
+# Create Kafka Topic
+sudo kafka_2.13-2.7.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic SOME_TOPIC_NAME 
 ```
 
-#### Start Superset
+#### Superset login and adding a database
 ```
 # SSH into Superset if Superset is on a node; run
 superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
 
 # Access Superset's UI; go to a browser and run 
 [SUPERSET_NODE_IP]:8088
-```
 
-#### Add Druid as a database in Superset
-`admin` and `password1` defined in Druid's basic security authentication protocol; defined in the common.runtime.properties config file in each Druid node.  
-Add `druid://admin@password1@[DRUID_QUERY_IP]:8888` in Superset's database page. 
+# Sign in with username & password as defined at Superset installation
 
-                        
+# Go to data > databases > add database and add
+druid://admin@password1@[DRUID_QUERY_IP]:8888 
+``` 
+
+## Connecting Kafka & Druid 
+In the Druid UI, select  Load Data > Kafka and fill out the following 
+![kafka-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png)
+
+
