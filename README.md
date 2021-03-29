@@ -67,25 +67,16 @@ superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
 # Go to data > databases > add database and add
 druid://admin@password1@[DRUID_QUERY_IP]:8888 
 ``` 
-
-## Connecting Kafka & Druid 
-In the Druid UI, select Load Data > Kafka and fill out the following 
-![kafka-druid-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png)
-
 ## Starting data source 
 #### Run producer.py
 ```
 # Go to where producer.py file is and run
 python3 producer.py
 ```
-## producer.py inside Kafka consumer
+## producer.py data inside Kafka consumer console
+The following confirms that the data being sent from producer.py is reaching kafka 
 ![kafka-consumer-gif](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-consumer.gif)
 
-
-
-
-
-
-
-
-
+## Connecting Kafka & Druid
+In the Druid UI, select Load Data > Kafka and fill out the following
+![kafka-druid-spec](https://github.com/jcodezy/streaming-with-kafka-druid-superset/blob/master/assets/kafka-druid-spec.png)
